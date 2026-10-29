@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/landing.css';
+
+const description = 'This page is a placeholder. Nothing here has been written yet.';
+---
+
+<Base title="Page not found" description={description}>
+  <main class="sheet">
+    <h1>Page not found</h1>
+    <p class="sub">{description}</p>
+    <p class="hint"><a href="/">Back to the landing page</a></p>
+  </main>
+</Base>

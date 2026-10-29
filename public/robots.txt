@@ -1,0 +1,3 @@
+# noindex until a separate captain go-live yes.
+User-agent: *
+Disallow: /
