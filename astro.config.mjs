@@ -18,8 +18,6 @@ export default defineConfig({
       disable404Route: true,
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/edheltzel/Echo' }],
       head: [
-        // noindex until a separate captain go-live yes.
-        { tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow' } },
         { tag: 'meta', attrs: { property: 'og:image', content: ogImageUrl } },
         { tag: 'meta', attrs: { property: 'og:image:width', content: String(ogImage.width) } },
         { tag: 'meta', attrs: { property: 'og:image:height', content: String(ogImage.height) } },

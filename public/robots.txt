@@ -1,3 +1,4 @@
-# noindex until a separate captain go-live yes.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://echo.edheltzel.codes/sitemap-index.xml
