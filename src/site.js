@@ -13,7 +13,7 @@ export const installCommand = 'gap sync';
 /** Product repo. */
 export const repoHref = 'https://github.com/edheltzel/Echo';
 
-/** Docs and install guide are coming-soon placeholders. Keep the links visible. */
+/** Docs and install guide paths (content in src/content/docs/docs/). */
 export const docsHref = '/docs/';
 export const installHref = '/docs/install/';
 
