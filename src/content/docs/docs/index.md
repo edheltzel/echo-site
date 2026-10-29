@@ -1,34 +1,39 @@
 ---
-title: Overview
-description: Echo speaks when a coding agent finishes its turn or needs you. One local daemon on your Mac.
+title: What Echo is
+description: Echo speaks your coding agent's completion line out loud, so you hear when a turn ends or when the agent needs you.
 ---
 
-Echo is ambient completion audio for coding agents. When a turn ends, a short line is spoken so you can keep your eyes on the work. When Claude Code, Pi, or oh-my-pi cannot continue without you, Echo speaks that wait once.
+**Hear your agents.**
 
-It is a local daemon on your Mac. Hosts do not import it. They POST JSON to `localhost:3246/notify`. A `curl` is a valid host.
+Coding agents finish in silence. You find out they are waiting only when you look back at the terminal.
 
-## What it does
+Echo is ambient completion audio for coding agents. When a turn ends, Echo speaks a short completion line so you can keep your eyes on the work. Supported hosts also announce when they cannot continue without you. Echo runs as one local daemon on your Mac at `localhost:3246`. Hosts never import it. They POST JSON to `/notify`, so even a `curl` counts as a host.
 
-- **Speaks turn completions.** Wired hosts send the trailing completion line; Echo says it out loud.
-- **Speaks the wait.** Claude Code, Pi, and oh-my-pi POST once when the agent is blocked on a permission, approval, or needs-input UI.
-- **Stays quiet when you want.** Mute, sounds-only mode, daemon disable, and host flags control when nothing plays.
-- **One daemon, many hosts.** Claude Code, Pi, oh-my-pi, Jcode, Grok Build, Codex, OpenCode (mute + completion), and raw HTTP.
+Open source · local daemon · macOS · Bun
 
-## What it is not
+## Without Echo / with Echo
 
-Echo is not a conversation loop. It is not a menu-bar recorder, notch UI, or global push-to-talk chrome. First-class speech-to-text is roadmap, not this install. The optional one-shot voice ask (`echo-converse`) can speak one question and return one reply; that is extra, not why you install Echo.
+| Without Echo | With Echo |
+| --- | --- |
+| The turn ends and the room stays quiet. | The completion line is spoken when the agent is done. |
+| You notice the wait only when you look at the terminal. | You hear the line from across the desk. |
+| The agent is blocked on a permission prompt. | Hosts with needs-input support announce the wait. |
+| Each host notifies differently, if at all. | One daemon on `:3246` serves Claude Code, Pi, oh-my-pi, Codex, and a `curl`. |
 
-## How it fits together
+## What Echo is not
 
-1. Install the core LaunchAgent (`com.echo`) on port **3246**.
-2. Prove speech with a `curl` POST to `/notify`.
-3. Optionally wire a host adapter so completions and waits arrive without you posting by hand.
+- Not a conversation loop. Echo announces; it does not listen-speak-listen.
+- Not a menu-bar recorder, notch UI, or push-to-talk tool.
+- First-class speech-to-text is on the [roadmap (#179)](https://github.com/edheltzel/Echo/issues/179). An optional one-shot voice ask exists, but it is an extra, not the reason to install Echo.
+
+## A note on privacy
+
+The default voice provider is Microsoft **edge-tts, which is an online service**. Kokoro and macOS `say` stay on your machine.
 
 ## Next
 
-- [Install guide](/docs/install/)
-- [Core loop](/docs/core-loop/)
-- [Usage: CLI and HTTP](/docs/usage/)
+- [Install Echo](/docs/install/)
+- [How the loop works](/docs/core-loop/)
+- [Everyday usage](/docs/usage/)
 - [Supported hosts](/docs/hosts/)
 
-Full product docs live in the [Echo repository](https://github.com/edheltzel/Echo/blob/main/README.md).

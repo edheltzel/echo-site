@@ -1,60 +1,45 @@
 ---
 title: Hosts
-description: Which coding agents Echo can speak for, and how each adapter attaches.
+description: Which coding agents Echo can speak for, and what each one announces.
 ---
 
-Echo’s core is host-neutral. Adapters observe host lifecycle events and POST to `localhost:3246/notify`. Wiring a host is optional; `curl` alone is enough to hear speech.
+Wiring a host is optional. Any process that can POST JSON to `localhost:3246/notify` can use Echo.
 
-## Support matrix
-
-| Host | Completion speech | Needs-you wait ping | Notes |
+| Host | `--adapter` | Completions | Needs-you announcements |
 | --- | --- | --- | --- |
-| Claude Code | Yes | Yes | Hooks + `/echo-voice`, `/echo-mute`, `/echo-mode`. Optional mute/mode plugin. |
-| Pi | Yes | Yes | Extension / packages reconcile. Greetings default on. |
-| oh-my-pi (omp) | Yes | Yes | Counterpart of Pi adapter; own package. Live chat path is separate from Echo mute. |
-| Jcode | Yes | No dedicated wait ping | Lifecycle `🗣️` completions. |
-| Grok Build | Yes | No dedicated wait ping | Lifecycle completions; mute/mode as skills. |
-| Codex | Yes | No dedicated wait ping | Completions + opt-in session starts. |
-| OpenCode | Completion when idle | No dedicated wait ping | Mute + mode commands; subagent sessions stay quiet. |
-| Raw HTTP / curl | Yes | You choose the line | Any client that POSTs `/notify`. |
-| MCP adapter | — | — | Optional one-shot voice ask for Claude Code (Pi/omp already have it). |
+| Claude Code | `claudecode` | Yes, plus `/echo-voice`, `/echo-mute`, `/echo-mode` | Yes (questions, permissions, idle) |
+| Pi | `pi` | Yes, plus session start | Yes |
+| oh-my-pi | `omp` | Yes | Yes |
+| Empryo | `empryo` | Yes, plus greeting | Yes (approval, question, plan review) |
+| Codex | `codex` | Yes, opt-in session start | No |
+| Grok Build | `grok` | Yes | No |
+| Jcode | `jcode` | Yes (🗣️ lines) | No |
+| OpenCode | `opencode` | Yes, on session idle | No |
+| MCP (voice ask for Claude Code) | `mcp` | n/a | n/a |
+| Scripts / `curl` | `none` | Whatever you POST | n/a |
 
-Subagents stay quiet by default. Headless Pi and omp runs (`json` / `print`, or no UI) stay quiet.
+Notes:
+- Subagents stay quiet on all hosts.
+- Headless Pi, omp, and Empryo runs stay quiet.
+- OpenCode has no headless check yet, so `opencode run` still speaks.
+- Uninstalling Echo does not remove adapter registrations.
 
-## Install an adapter
+=== END ===
 
-From an Echo checkout, after the core is healthy:
-
-```bash
-cli/echo install --adapter claudecode
-cli/echo install --adapter pi
-cli/echo install --adapter omp
-cli/echo install --adapter jcode
-cli/echo install --adapter grok
-cli/echo install --adapter codex
-cli/echo install --adapter opencode
-cli/echo install --adapter mcp
-```
-
-`scripts/install.sh` re-reconciles every installed adapter on every run. Registrations are idempotent and prune stale paths (repo renames). Prefer `cli/echo install` over hand-editing host config.
-
-Restart each host after install.
-
-## Adapter rules (for contributors)
-
-Adapters:
-
-1. Observe host lifecycle events
-2. Extract a short user-facing message
-3. POST to `/notify` with `source` / `session_id` when available
-4. Treat notify failures as non-fatal warnings
-5. Suppress child/subagent contexts
-6. Detect needs-input themselves and POST a dedicated wait line (Claude Code, Pi, omp)
-
-They import nothing from `core/`. Shared helpers come from `@echo/shared`. Full contract: product [adapters.md](https://github.com/edheltzel/Echo/blob/main/docs/adapters.md).
-
-## Next
-
-- [Install guide](/docs/install/)
-- [Core loop](/docs/core-loop/)
-- [Usage](/docs/usage/)
+## Seven answers
+1. Tagline: "Hear your agents." The paragraph is in index.md.
+2. Install: clone + `cli/echo install --adapter none` is the canonical path. `gap sync` is valid only for GAP-managed machines and is not in Echo's docs.
+3. Flow cards: Agent finishes / Echo speaks / Needs you / Quiet when it should be / Replay and doctor.
+4. Config and paths: see usage.md.
+5. Pages: index, install, core-loop, usage (mute and config), hosts. Later: voices, HTTP API, troubleshooting.
+6. Do not claim:
+   - Offline: edge-tts is online.
+   - STT or conversation mode.
+   - Linux or Windows support.
+   - Wait pings for Codex, Grok, Jcode, or OpenCode.
+   - Per-session mute.
+   - That 202 means "spoken".
+   - That `gap sync` is universal.
+   - A version newer than the v0.13.0 pin (v0.13.3 exists upstream).
+   - That doctor is always READY: MacDaddy edge-tts health is unverified.
+7. Accent: none is documented. Keep the stand-in `#f472b6`.

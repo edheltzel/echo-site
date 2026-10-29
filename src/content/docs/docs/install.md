@@ -1,58 +1,38 @@
 ---
-title: Install guide
-description: Install Echo on macOS with Bun, hear Hello from Echo, then wire a host adapter.
+title: Install
+description: Install the Echo daemon on macOS, hear your first spoken notification, then wire a host.
 ---
 
-Echo installs from a source checkout on **macOS**. The installer writes a LaunchAgent (`com.echo`) and starts a daemon on `localhost:3246`. You need [Bun](https://bun.sh/) and `git`.
+## Requirements
 
-The marketing site may show `gap sync` as a GAP-family install shortcut. The product install below is the source-checkout path from the Echo repo. Use whichever matches how you manage GAP skills; both end at a healthy daemon on `:3246`.
+- **macOS.** The installer writes a LaunchAgent. Linux is best-effort, for manual server runs only.
+- **[Bun](https://bun.sh/).**
 
-## Prerequisites
+Voice notifications need nothing else.
 
-- A Mac (LaunchAgent). Linux is best-effort for manual server runs only.
-- [Bun](https://bun.sh/) — `curl -fsSL https://bun.sh/install | bash`
-- `git`
-
-```bash
-bun --version
-```
-
-## 1. Get the code
+## 1. Install the core
 
 ```bash
 git clone https://github.com/edheltzel/Echo.git
 cd Echo
-```
-
-You should see `core/`, `scripts/`, `adapters/`, and `cli/echo`.
-
-## 2. Install the core
-
-```bash
 cli/echo install --adapter none
 ```
 
-Same thing: `bash scripts/install.sh --adapter none`.
-
-Output should end with:
+`cli/echo` delegates to `scripts/install.sh`, so `bash scripts/install.sh --adapter none` does the same thing. The installer writes the LaunchAgent `com.echo` and starts the server on `localhost:3246`. It should finish with:
 
 ```
 OK echo is healthy on :3246
 ```
 
-If you see `Voice server did not respond`, open `~/Library/Logs/echo.log`, fix the cause, and rerun. Running install again is safe.
+Keep the clone in a permanent location. The daemon runs from a staged payload, and moving the repo needs the steps in Echo's [operations guide](https://github.com/edheltzel/Echo/blob/main/docs/operations.md#moved-or-renamed-the-repo).
 
-## 3. Confirm health
+### Using GAP?
 
-```bash
-curl -fsS http://localhost:3246/health
-```
+If your machine is managed by GAP, `gap sync` installs Echo at the version pinned in GAP's lock (currently `echo@v0.13.0`) and runs Echo's `scripts/install.sh`. `gap doctor` runs `cli/echo doctor`.
 
-Expect JSON that starts like `{"status":"healthy","port":3246,...}`.
+## 2. Turn the volume up
 
-## 4. Hear Hello from Echo
-
-Turn the volume up, then:
+## 3. Hear "Hello from Echo"
 
 ```bash
 curl -X POST http://localhost:3246/notify \
@@ -60,41 +40,37 @@ curl -X POST http://localhost:3246/notify \
   -d '{"message":"Hello from Echo"}'
 ```
 
-You should hear the identity voice say "Hello from Echo" and see JSON with `"status":"accepted"`. `202` / accepted means the daemon took the line, not that playback finished.
+You should hear "Hello from Echo" and get JSON with `"status":"accepted"`. A `202` means the daemon accepted the line, not that playback has finished.
 
-## 5. Everyday checks
-
-```bash
-cli/echo doctor    # one row per check; ends Result: READY when healthy
-cli/echo mute on   # also: off | toggle | status | 30m | on tts | on mic
-cli/echo replay    # last spoken line; replay 3 for the last three
-```
-
-Mute is machine-wide. Notifications still arrive and are logged. Mute vs unloading the daemon: see [operations in the product repo](https://github.com/edheltzel/Echo/blob/main/docs/operations.md#mute-vs-daemon-disable).
-
-## Wire a host (after you hear the smoke)
+## 4. Check the install
 
 ```bash
-cli/echo install --adapter claudecode   # Claude Code hooks
-cli/echo install --adapter pi           # Pi
-cli/echo install --adapter omp          # oh-my-pi
-cli/echo install --adapter jcode
-cli/echo install --adapter grok         # Grok Build
-cli/echo install --adapter codex
-cli/echo install --adapter opencode
-cli/echo install --adapter mcp          # optional one-shot voice ask for Claude Code
+cli/echo doctor      # one row per check, ends in Result: READY
+curl -fsS http://localhost:3246/health
 ```
 
-Restart each host after install. Adapter details: [Supported hosts](/docs/hosts/).
+## 5. Wire a host (optional)
 
-## Optional voice-ask recorder
+```bash
+cli/echo install --adapter claudecode
+```
 
-Voice notifications need nothing beyond the core. The optional one-shot voice ask needs `sox` (`rec`) and a local transcriber (recommended on macOS 26: `brew install sox yap`). See product `docs/dependencies.md` and `docs/converse.md`.
+Adapter values: `none`, `claudecode`, `jcode`, `grok`, `codex`, `mcp`, `pi`, `omp`, `opencode`, `empryo`. See [Hosts](/docs/hosts/).
 
-## Next
+## If you hear nothing
 
-- [Overview](/docs/)
-- [Core loop](/docs/core-loop/)
-- [Usage](/docs/usage/)
-- [Hosts](/docs/hosts/)
-- Product: [getting started](https://github.com/edheltzel/Echo/blob/main/docs/getting-started.md) · [install human](https://github.com/edheltzel/Echo/blob/main/docs/install-human.md)
+1. Run `bash scripts/status.sh`. You should see `Service: com.echo` loaded and `Health: OK`. If you don't, rerun the install. If port 3246 is occupied but not answering, run `cli/echo doctor`.
+2. Check the daemon log: `tail -20 ~/Library/Logs/echo.log`.
+3. Check the voice-resolution log: `tail -3 ~/Library/Logs/echo/voice-resolution.jsonl`.
+
+On the smoke test, the expected voice is `en-GB-RyanNeural` (British male, the identity voice). If you hear macOS `say` ("Daniel"), edge-tts failed. A common fix is `/opt/homebrew/bin/python3 -m pip install edge-tts` followed by a restart.
+
+## Optional: voice ask
+
+The one-shot voice ask needs `brew install sox` (required), plus a transcriber: `brew install yap` (or `whisper-cli` with a model).
+
+## Update and uninstall
+
+- After a `git pull`, run `cli/echo update`. It re-stages the payload and reloads, and it rolls back automatically if the new payload fails `/health`.
+- `cli/echo uninstall` removes the LaunchAgent and the staged payload. It does not remove adapter registrations.
+

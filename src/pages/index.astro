@@ -6,9 +6,9 @@ import { docsHref, installCommand, installHref, repoHref, siteName } from '../si
 import '../styles/landing.css';
 
 const steps = [
-  { name: 'Agent finishes', text: 'Your coding agent ends its turn or stops to wait on you.' },
-  { name: 'Host posts', text: 'The host POSTs a short JSON line to localhost:3246/notify.' },
-  { name: 'Echo speaks', text: 'You hear the completion line or the wait, without watching the terminal.' },
+  { name: 'Agent finishes', text: 'The host adapter catches the turn end and POSTs the completion line to /notify.' },
+  { name: 'Echo speaks', text: 'The local daemon on :3246 speaks the line so you hear it without watching the terminal.' },
+  { name: 'Needs you', text: 'Supported hosts announce approvals and waits once. Mute is machine-wide, not per session.' },
 ];
 const starts = [
   { title: 'Install guide', text: 'macOS, Bun, hear Hello from Echo, then wire a host.', href: installHref },
@@ -39,7 +39,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
           <div class="console">
             <div class="crow"><span class="lab"><b>1</b> Install</span><Cmd command={installCommand} /></div>
           </div>
-          <p class="hint">Ambient completion audio. Not a conversation loop.</p>
+          <p class="hint">Docs install with clone + cli/echo. This box is the GAP alternative (gap sync).</p>
           <div class="cta"><a class="btn" href={installHref}>Install guide</a><a class="ghost" href={repoHref}>GitHub</a></div>
         </div>
         <i class="spark" id="sp1" aria-hidden="true"></i><i class="spark v" id="sp2" aria-hidden="true"></i>

@@ -1,68 +1,55 @@
 ---
 title: Usage
-description: Everyday Echo CLI, health checks, mute, and the HTTP notify contract.
+description: Everyday Echo commands, mute, sounds-only mode, configuration, and where Echo keeps its files.
 ---
 
-After install, day-to-day use is a small CLI plus an HTTP daemon on port **3246**.
-
-## CLI at a glance
+## Everyday commands
 
 ```bash
-cli/echo doctor              # checks; ends Result: READY when healthy
-cli/echo mute on|off|toggle|status|30m|on tts|on mic
-cli/echo mode speech|sounds|status
-cli/echo replay              # last spoken line
-cli/echo replay 3            # last three (max 10)
-curl -fsS http://localhost:3246/health
+cli/echo doctor              # health check, ends in Result: READY
+cli/echo mute on             # also: off | toggle | status | 30m | on tts | on mic
+cli/echo mode sounds         # sounds instead of speech; `mode speech` switches back
+cli/echo replay              # last spoken line; `replay 3` for the last three
+cli/echo update              # after git pull
+bash scripts/start.sh | stop.sh | status.sh
 ```
 
-Mute is **machine-wide**. It silences Echo audio; notifications still arrive and are logged. It does not stop Oh My Pi live chat, which speaks on its own path. Taking the LaunchAgent down is daemon disable, not mute — see product [operations](https://github.com/edheltzel/Echo/blob/main/docs/operations.md#mute-vs-daemon-disable).
+## Mute
 
-## Notify (the universal host API)
+Mute applies to the **whole machine**, not one session. It survives daemon restarts.
 
-Any process can speak through Echo:
+- `all` (default): speaker plus mic capture are silent.
+- `tts`: speech is replaced with short sounds. Notifications are still logged.
+- `mic`: holds capture and voice ask only.
+- Timed mute such as `30m` expires on the next notification after the deadline.
 
-```bash
-curl -X POST http://localhost:3246/notify \
-  -H 'Content-Type: application/json' \
-  -d '{"message":"Hello from Echo"}'
-```
+`/echo-mute` on hosts that register it runs the same command. There is no per-session mute. Mute does not stop Oh My Pi `/live`, which speaks on its own path.
 
-Adapters do the same POST with host metadata (`source`, `session_id`, completion vs wait lines). The wire contract is in product [http-api.md](https://github.com/edheltzel/Echo/blob/main/docs/http-api.md).
+**Mute vs daemon disable:** `bash scripts/stop.sh` unloads `com.echo`. That takes the service down; it is not mute.
 
-## Config
+## Sounds-only mode
 
-Persistent settings: `~/.config/echo/config.json` (optional; defaults apply if missing).
+`cli/echo mode sounds` (or `/echo-mode sounds`) plays one of three sounds instead of speech: **Request** (the agent needs you), **Done** (the turn finished), and **Generic** (everything else). The mode is global and survives restarts. Replay and voice-ask questions always speak.
 
-Secrets: only `ELEVENLABS_API_KEY` belongs in `~/.config/echo/.env` — never in `config.json`.
+## Configuration
 
-Voices and personas: `core/voices.json` inside the Echo checkout. After editing voices, use `cli/echo update` / re-stage as described in product operations.
+- Settings: `~/.config/echo/config.json`. This file always wins.
+- The only secret, `ELEVENLABS_API_KEY`, goes in `~/.config/echo/.env`. config.json rejects it.
+- Useful keys: `ECHO_PREFERRED_NAME`, `ECHO_VOICE_SPEAK_COMPLETIONS`, `ECHO_VOICE_GREET_ON_START`, `ECHO_VOICE_SUPPRESS_SUBAGENTS`, `ECHO_SOUND_REQUEST` / `_DONE` / `_GENERIC`.
+- A non-destructive migration moves old dotenv settings into config.json. It never edits or deletes the dotenv file.
 
-Reload after config edits:
+## Where Echo keeps things
 
-```bash
-launchctl kickstart -k "gui/$UID/com.echo"
-# or: bash scripts/restart.sh
-```
+| What | Where |
+| --- | --- |
+| Config | `~/.config/echo/config.json` |
+| Secret | `~/.config/echo/.env` |
+| Service | LaunchAgent `com.echo`, port `3246` |
+| Running payload | `~/Library/Application Support/echo/payload/` |
+| Daemon log | `~/Library/Logs/echo.log` |
+| Voice resolution log | `~/Library/Logs/echo/voice-resolution.jsonl` |
+| Audio lifecycle log | `~/Library/Logs/echo/audio-lifecycle.jsonl` |
+| Playback state | `~/.local/state/echo/playback-state.json` |
 
-## Logs and troubleshooting
+`/notify` and `/mute` are unauthenticated and listen on localhost only.
 
-- Daemon log: `~/Library/Logs/echo.log`
-- Audio lifecycle JSONL: configured under `ECHO_AUDIO_LIFECYCLE_LOG` (default under `~/Library/Logs/echo/`)
-- Wrong voice is not silence — identity default is edge `en-GB-RyanNeural`; see product getting-started troubleshooting and [voices.md](https://github.com/edheltzel/Echo/blob/main/docs/voices.md)
-
-## Update and uninstall
-
-```bash
-git pull
-cli/echo update
-# or: bash scripts/install.sh --adapter <same adapter you use>
-```
-
-Uninstall and legacy services: product [operations.md](https://github.com/edheltzel/Echo/blob/main/docs/operations.md#uninstall).
-
-## Next
-
-- [Install guide](/docs/install/)
-- [Core loop](/docs/core-loop/)
-- [Hosts](/docs/hosts/)

@@ -7,7 +7,7 @@ export const siteDescription =
 /** Canonical site URL (also SITE_URL default in astro.config.mjs). */
 export const siteUrl = 'https://echo.edheltzel.codes';
 
-/** Landing install command (captain lock). */
+/** Landing install command: GAP alternative. Docs lead with clone + cli/echo install. */
 export const installCommand = 'gap sync';
 
 /** Product repo. */
