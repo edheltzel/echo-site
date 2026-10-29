@@ -1,10 +1,10 @@
-/* Landing, frozen amber concept B (doskills-mockups v6/concept-b/src-amber).
+/* Landing, concept B (doskills-mockups v6/concept-b layout; Echo stand-in rose accent).
    Tokens come from tokens.css; the hero field is drawn by src/scripts/hero.ts. */
 :root{
   --pad: max(24px, calc((100vw - 1136px) / 2));
   --out: cubic-bezier(0.16, 1, 0.3, 1);
 }
-/* base.css paints every link amber (visited included, via the plain `a` rule).
+/* base.css paints every link accent (visited included, via the plain `a` rule).
    Landing links set their own colour; this only undoes the base rule at
    specificity (0,0,1), so any class rule below still wins, visited or not. */
 :where(.cb) a:where(:not(.btn, .skip)){ color: inherit; }

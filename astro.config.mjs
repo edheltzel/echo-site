@@ -3,7 +3,7 @@ import starlight from '@astrojs/starlight';
 import { ogImage, siteDescription, siteName } from './src/site.js';
 
 /** Public origin. Override with SITE_URL. The site is served at /, so there is no base. */
-const site = process.env.SITE_URL || 'https://recall.edheltzel.codes';
+const site = process.env.SITE_URL || 'https://echo.edheltzel.codes';
 
 /** Absolute so crawlers can fetch it; same URL the landing page uses (src/layouts/Base.astro). */
 const ogImageUrl = new URL(ogImage.path, site).href;
@@ -16,7 +16,7 @@ export default defineConfig({
       title: siteName,
       description: siteDescription,
       disable404Route: true,
-      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/edheltzel/Recall' }],
+      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/edheltzel/Echo' }],
       head: [
         // noindex until a separate captain go-live yes.
         { tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow' } },

@@ -1,7 +1,7 @@
 export {};
 
 const root = document.documentElement;
-const storageKey = 'recall-theme';
+const storageKey = 'echo-theme';
 
 function aria(pref: string) {
   const follows = pref === 'auto' ? ' (follows system)' : '';

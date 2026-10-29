@@ -1,9 +1,8 @@
 /*
-  TODO(recall-brief): accent is the DoSkills amber as a stand-in until the Recall brief lands.
-  One dark block, one light block. Near-black slate, amber accent.
-  Dark accent is #f5a524. Highlight is #ffd27a. Deep tint is #4a3310.
-  #9a6a14 is the mid line tint. It is under 4.5:1 on the paper surfaces,
-  so light text and links use #8a5a0c instead.
+  TODO(echo-brief): accent is an Echo stand-in rose #f472b6 until the Echo brief lands.
+  One dark block, one light block. Near-black slate, rose accent.
+  Dark accent is #f472b6. Highlight is #fbcfe8. Deep tint is #5c1438.
+  #c04a88 is the mid line tint. Light text and links use #a1245e.
   The light-nojs block repeats the light values so a page with JavaScript
   off still follows the system. scripts/contrast.mjs fails if the two drift.
 */
@@ -22,22 +21,22 @@
   --btn-bg: #ededed;
   --btn-fg: #000000;
   --btn-hv: #ffffff;
-  --acc: #f5a524;
-  --acc2: #ffd27a;
-  --mid: #9a6a14;
+  --acc: #f472b6;
+  --acc2: #fbcfe8;
+  --mid: #c04a88;
   --bg-rgb: 11, 17, 19;
   --s1-rgb: 17, 26, 29;
   --ink-rgb: 237, 237, 237;
-  --acc-rgb: 245, 165, 36;
-  --acc2-rgb: 255, 210, 122;
-  --hot-rgb: 255, 210, 122;
-  --b1: rgba(245, 210, 150, 0.06);
-  --b2: rgba(245, 210, 150, 0.1);
-  --b3: rgba(245, 210, 150, 0.16);
-  --b4: rgba(245, 210, 150, 0.26);
-  --hi: rgba(245, 210, 150, 0.04);
-  --stripe: rgba(245, 210, 150, 0.02);
-  --glow: 0 0 6px rgba(245, 165, 36, 0.5);
+  --acc-rgb: 244, 114, 182;
+  --acc2-rgb: 251, 207, 232;
+  --hot-rgb: 251, 207, 232;
+  --b1: rgba(244, 180, 214, 0.06);
+  --b2: rgba(244, 180, 214, 0.1);
+  --b3: rgba(244, 180, 214, 0.16);
+  --b4: rgba(244, 180, 214, 0.26);
+  --hi: rgba(244, 180, 214, 0.04);
+  --stripe: rgba(244, 180, 214, 0.02);
+  --glow: 0 0 6px rgba(244, 114, 182, 0.5);
   --shade-edge: 0.5;
 }
 
@@ -55,15 +54,15 @@
   --btn-bg: #111111;
   --btn-fg: #f6f5f1;
   --btn-hv: #000000;
-  --acc: #8a5a0c;
-  --acc2: #4a3310;
-  --mid: #9a6a14;
+  --acc: #a1245e;
+  --acc2: #5c1438;
+  --mid: #c04a88;
   --bg-rgb: 246, 245, 241;
   --s1-rgb: 252, 251, 248;
   --ink-rgb: 17, 17, 17;
-  --acc-rgb: 138, 90, 12;
-  --acc2-rgb: 74, 51, 16;
-  --hot-rgb: 255, 210, 122;
+  --acc-rgb: 161, 36, 94;
+  --acc2-rgb: 92, 20, 56;
+  --hot-rgb: 251, 207, 232;
   --b1: rgba(0, 0, 0, 0.07);
   --b2: rgba(0, 0, 0, 0.11);
   --b3: rgba(0, 0, 0, 0.17);
@@ -90,15 +89,15 @@
     --btn-bg: #111111;
     --btn-fg: #f6f5f1;
     --btn-hv: #000000;
-    --acc: #8a5a0c;
-    --acc2: #4a3310;
-    --mid: #9a6a14;
+    --acc: #a1245e;
+    --acc2: #5c1438;
+    --mid: #c04a88;
     --bg-rgb: 246, 245, 241;
     --s1-rgb: 252, 251, 248;
     --ink-rgb: 17, 17, 17;
-    --acc-rgb: 138, 90, 12;
-    --acc2-rgb: 74, 51, 16;
-    --hot-rgb: 255, 210, 122;
+    --acc-rgb: 161, 36, 94;
+    --acc2-rgb: 92, 20, 56;
+    --hot-rgb: 251, 207, 232;
     --b1: rgba(0, 0, 0, 0.07);
     --b2: rgba(0, 0, 0, 0.11);
     --b3: rgba(0, 0, 0, 0.17);

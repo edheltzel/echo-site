@@ -5,11 +5,11 @@ import Cmd from '../components/Cmd.astro';
 import { docsHref, installCommand, installHref, repoHref, siteName } from '../site.js';
 import '../styles/landing.css';
 
-/** Placeholder copy until the Recall brief lands. */
+/** TODO(echo-brief): placeholder copy until the Echo brief lands. */
 const steps = [
-  { name: 'Capture', text: 'Lifecycle hooks save session progress automatically.' },
-  { name: 'Distill', text: 'Decisions, learnings, and breadcrumbs go into one local SQLite + FTS5 file.' },
-  { name: 'Inject at session start', text: 'Your identity and top-ranked records load when the next session starts.' },
+  { name: 'Agent finishes', text: 'Your coding agent ends its turn or stops to wait on you.' },
+  { name: 'Host posts', text: 'The host sends a small JSON event to the local Echo daemon.' },
+  { name: 'Echo speaks', text: 'You hear the completion line or the wait, without watching the terminal.' },
 ];
 const starts = [
   { title: 'Install guide', text: 'Coming soon.', href: installHref },
@@ -35,12 +35,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
           </nav>
         </header>
         <div class="copy" id="install">
-          <h1>Memory for your agents.<br /><span class="l2">Install</span> <span class="l3">once.</span></h1>
-          <p class="sub">Placeholder: Recall captures each session, distills what matters into one local SQLite file, and injects it when the next session starts.</p>
+          <h1>Hear your agents.<br /><span class="l2">Install</span> <span class="l3">once.</span></h1>
+          <p class="sub">Placeholder: Echo speaks when a coding agent finishes its turn or is waiting on you. One local daemon on your Mac.</p>
           <div class="console">
             <div class="crow"><span class="lab"><b>1</b> Install</span><Cmd command={installCommand} /></div>
           </div>
-          <p class="hint">Work in progress. Copy is a placeholder until the Recall brief lands.</p>
+          <p class="hint">Work in progress. Copy is a placeholder until the Echo brief lands.</p>
           <div class="cta"><a class="btn" href={installHref}>Install guide (coming soon)</a><a class="ghost" href={repoHref}>GitHub</a></div>
         </div>
         <i class="spark" id="sp1" aria-hidden="true"></i><i class="spark v" id="sp2" aria-hidden="true"></i>
@@ -48,8 +48,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <div class="wrap">
         <section id="how" aria-labelledby="how-title">
           <div class="lhead">
-            <h2 id="how-title">How Recall works. <span>Three steps.</span></h2>
-            <p class="lead">Placeholder copy until the Recall brief lands.</p>
+            <h2 id="how-title">How Echo works. <span>Three steps.</span></h2>
+            <p class="lead">Placeholder copy until the Echo brief lands.</p>
           </div>
           <div class="flow flow3">
             <ol class="track">
@@ -82,7 +82,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
       </div>
     </main>
     <footer class="base">
-      <span>Recall is built by Ed Heltzel. Work in progress.</span>
+      <span>Echo is built by Ed Heltzel. Work in progress.</span>
       <nav aria-label="Footer"><a href={docsHref}>Docs</a><a href={repoHref}>GitHub</a></nav>
     </footer>
   </div>

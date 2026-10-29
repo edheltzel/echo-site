@@ -1,9 +1,9 @@
 # Generates public/og.png (1200x630) in the GAP/DoSkills family style.
-# Recall accent #7c8cff (violet-blue). TODO(recall-brief): override if the brief picks another.
+# Echo stand-in accent #f472b6 (rose). TODO(echo-brief): override when the brief picks the accent.
 import math, random
 from PIL import Image, ImageDraw, ImageFont
 W, H = 1200, 630
-BG = (11, 17, 19); ACC = (124, 140, 255); TEXT = (237, 237, 237); T2 = (161, 161, 161); T3 = (140, 140, 140)
+BG = (11, 17, 19); ACC = (244, 114, 182); TEXT = (237, 237, 237); T2 = (161, 161, 161); T3 = (140, 140, 140)
 G = '/usr/share/fonts/truetype/sand-box/google/Geist/Geist-VariableFont_wght.ttf'
 M = '/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf'
 def geist(size, w=600):
@@ -39,10 +39,10 @@ d.ellipse([mx-55, my-55, mx+55, my+55], fill=ACC)
 d.ellipse([mx-17, my-17, mx+17, my+17], fill=BG)
 # Copy
 ft = geist(68, 600)
-d.text((72, 228), 'Recall:', font=ft, fill=ACC)
-w = d.textlength('Recall: ', font=ft)
-d.text((72 + w, 228), 'Memory for', font=ft, fill=TEXT)
+d.text((72, 228), 'Echo:', font=ft, fill=ACC)
+w = d.textlength('Echo: ', font=ft)
+d.text((72 + w, 228), 'Voice for', font=ft, fill=TEXT)
 d.text((72, 312), 'Coding Agents', font=ft, fill=TEXT)
-d.text((72, 420), 'Capture, distill, recall at session start.', font=geist(28, 400), fill=T2)
-d.text((72, 568), 'recall.edheltzel.codes', font=ImageFont.truetype(M, 20), fill=T2)
+d.text((72, 420), 'Hear when an agent finishes or needs you.', font=geist(28, 400), fill=T2)
+d.text((72, 568), 'echo.edheltzel.codes', font=ImageFont.truetype(M, 20), fill=T2)
 img.save('public/og.png', optimize=True)

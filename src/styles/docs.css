@@ -86,7 +86,7 @@ starlight-toc a[aria-current='true'] {
 }
 
 footer.sl-flex::after {
-  content: 'Recall';
+  content: 'Echo';
   font-family: var(--mono);
   font-size: 9.5px;
   letter-spacing: 0.14em;
