@@ -22,8 +22,6 @@ const ogImageUrl = new URL(ogImage.path, Astro.site).href;
     <meta name="color-scheme" content="dark light" />
     <ThemeScript />
     <title>{title}</title>
-    <!-- noindex until a separate captain go-live yes. -->
-    <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
