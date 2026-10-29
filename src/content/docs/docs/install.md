@@ -5,7 +5,7 @@ description: Install the Echo daemon on macOS, hear your first spoken notificati
 
 ## Requirements
 
-- **macOS.** The installer writes a LaunchAgent. Linux is best-effort, for manual server runs only.
+- **macOS.** The installer writes a LaunchAgent (`com.echo`).
 - **[Bun](https://bun.sh/).**
 
 Voice notifications need nothing else.
@@ -30,9 +30,7 @@ Keep the clone in a permanent location. The daemon runs from a staged payload, a
 
 If your machine is managed by GAP, `gap sync` installs Echo at the version pinned in GAP's lock (currently `echo@v0.13.0`) and runs Echo's `scripts/install.sh`. `gap doctor` runs `cli/echo doctor`.
 
-## 2. Turn the volume up
-
-## 3. Hear "Hello from Echo"
+## 2. Hear "Hello from Echo"
 
 ```bash
 curl -X POST http://localhost:3246/notify \
@@ -42,14 +40,16 @@ curl -X POST http://localhost:3246/notify \
 
 You should hear "Hello from Echo" and get JSON with `"status":"accepted"`. A `202` means the daemon accepted the line, not that playback has finished.
 
-## 4. Check the install
+## 3. Check the install
 
 ```bash
-cli/echo doctor      # one row per check, ends in Result: READY
+cli/echo doctor      # health checks; look for READY when things look good
 curl -fsS http://localhost:3246/health
 ```
 
-## 5. Wire a host (optional)
+`doctor` is a checklist, not a guarantee — prove speech with your ear on the Hello smoke.
+
+## 4. Wire a host (optional)
 
 ```bash
 cli/echo install --adapter claudecode

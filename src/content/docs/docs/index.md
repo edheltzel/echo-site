@@ -24,7 +24,7 @@ Open source · local daemon · macOS · Bun
 
 - Not a conversation loop. Echo announces; it does not listen-speak-listen.
 - Not a menu-bar recorder, notch UI, or push-to-talk tool.
-- First-class speech-to-text is on the [roadmap (#179)](https://github.com/edheltzel/Echo/issues/179). An optional one-shot voice ask exists, but it is an extra, not the reason to install Echo.
+- First-class speech-to-text is on the [roadmap (#179)](https://github.com/edheltzel/Echo/issues/179). Echo is ambient completion audio, not a conversation loop.
 
 ## A note on privacy
 
