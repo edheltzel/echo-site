@@ -6,13 +6,13 @@ import { docsHref, gapSyncCommand, gapSyncNote, installCommand, installHref, rep
 import '../styles/landing.css';
 
 const steps = [
-  { name: 'Agent finishes', text: 'The host adapter catches the turn end and POSTs the completion line to /notify.' },
-  { name: 'Echo speaks', text: 'The local daemon on :3246 speaks the line so you hear it without watching the terminal.' },
+  { name: 'Agent finishes', text: 'The host adapter catches the turn end and POSTs the completion line.' },
+  { name: 'Echo speaks', text: 'The local daemon speaks the line so you hear it without watching the terminal.' },
   { name: 'Needs you', text: 'Supported hosts announce approvals and waits once. Mute is machine-wide, not per session.' },
 ];
 const starts = [
   { title: 'Install guide', text: 'macOS, Bun, hear Hello from Echo, then wire a host.', href: installHref },
-  { title: 'Docs', text: 'Overview, core loop, usage, and hosts.', href: docsHref },
+  { title: 'Docs', text: 'Overview, quick start.', href: docsHref },
 ];
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
