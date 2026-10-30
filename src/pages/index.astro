@@ -2,18 +2,17 @@
 import Base from '../layouts/Base.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import Cmd from '../components/Cmd.astro';
-import { docsHref, installCommand, installHref, repoHref, siteName } from '../site.js';
+import { docsHref, gapSyncCommand, gapSyncNote, installCommand, installHref, repoHref, siteName } from '../site.js';
 import '../styles/landing.css';
 
-/** TODO(echo-brief): placeholder copy until the Echo brief lands. */
 const steps = [
-  { name: 'Agent finishes', text: 'Your coding agent ends its turn or stops to wait on you.' },
-  { name: 'Host posts', text: 'The host sends a small JSON event to the local Echo daemon.' },
-  { name: 'Echo speaks', text: 'You hear the completion line or the wait, without watching the terminal.' },
+  { name: 'Agent finishes', text: 'The host adapter catches the turn end and POSTs the completion line to /notify.' },
+  { name: 'Echo speaks', text: 'The local daemon on :3246 speaks the line so you hear it without watching the terminal.' },
+  { name: 'Needs you', text: 'Supported hosts announce approvals and waits once. Mute is machine-wide, not per session.' },
 ];
 const starts = [
-  { title: 'Install guide', text: 'Coming soon.', href: installHref },
-  { title: 'Docs', text: 'Coming soon.', href: docsHref },
+  { title: 'Install guide', text: 'macOS, Bun, hear Hello from Echo, then wire a host.', href: installHref },
+  { title: 'Docs', text: 'Overview, core loop, usage, and hosts.', href: docsHref },
 ];
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
@@ -36,12 +35,13 @@ const pad = (n: number) => String(n).padStart(2, '0');
         </header>
         <div class="copy" id="install">
           <h1>Hear your agents.<br /><span class="l2">Install</span> <span class="l3">once.</span></h1>
-          <p class="sub">Placeholder: Echo speaks when a coding agent finishes its turn or is waiting on you. One local daemon on your Mac.</p>
+          <p class="sub">Hear your agents. Echo speaks when a coding agent finishes its turn or is waiting on you. One local daemon on your Mac.</p>
           <div class="console">
             <div class="crow"><span class="lab"><b>1</b> Install</span><Cmd command={installCommand} /></div>
+            <div class="crow"><span class="lab"><b>GAP</b></span><Cmd command={gapSyncCommand} /></div>
           </div>
-          <p class="hint">Work in progress. Copy is a placeholder until the Echo brief lands.</p>
-          <div class="cta"><a class="btn" href={installHref}>Install guide (coming soon)</a><a class="ghost" href={repoHref}>GitHub</a></div>
+          <p class="hint">{gapSyncNote}. Not the primary install. Full steps in the install guide.</p>
+          <div class="cta"><a class="btn" href={installHref}>Install guide</a><a class="ghost" href={repoHref}>GitHub</a></div>
         </div>
         <i class="spark" id="sp1" aria-hidden="true"></i><i class="spark v" id="sp2" aria-hidden="true"></i>
       </div>
@@ -49,7 +49,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <section id="how" aria-labelledby="how-title">
           <div class="lhead">
             <h2 id="how-title">How Echo works. <span>Three steps.</span></h2>
-            <p class="lead">Placeholder copy until the Echo brief lands.</p>
+            <p class="lead">Agent finishes, Echo speaks, or the host needs you.</p>
           </div>
           <div class="flow flow3">
             <ol class="track">

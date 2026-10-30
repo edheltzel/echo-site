@@ -1,19 +1,23 @@
 export const siteName = 'Echo';
 
-/** TODO(echo-brief): placeholder until the Echo brief lands. */
 export const siteDescription =
   'Hear your agents. Echo speaks when a coding agent finishes its turn or is waiting on you. One local daemon on your Mac.';
 
 /** Canonical site URL (also SITE_URL default in astro.config.mjs). */
 export const siteUrl = 'https://echo.edheltzel.codes';
 
-/** Landing install command (captain lock). */
-export const installCommand = 'gap sync';
+/** Landing hero install: Echo README path (clone + cli/echo install). */
+export const installCommand =
+  'git clone https://github.com/edheltzel/Echo.git && cd Echo && cli/echo install --adapter none';
+
+/** GAP-managed alternative only (pin echo@v0.13.0). Not the hero command. */
+export const gapSyncCommand = 'gap sync';
+export const gapSyncNote = 'GAP alternative (echo@v0.13.0)';
 
 /** Product repo. */
 export const repoHref = 'https://github.com/edheltzel/Echo';
 
-/** Docs and install guide are coming-soon placeholders. Keep the links visible. */
+/** Docs and install guide paths (content in src/content/docs/docs/). */
 export const docsHref = '/docs/';
 export const installHref = '/docs/install/';
 
