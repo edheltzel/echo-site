@@ -18,7 +18,7 @@ export const gapSyncNote = 'GAP alternative (echo@v0.13.0)';
 export const repoHref = 'https://github.com/edheltzel/Echo';
 
 /** Docs live in the product repo (C2); the site links out. */
-export const docsHref = 'https://github.com/edheltzel/Echo/tree/master/docs';
+export const docsHref = 'https://github.com/edheltzel/Echo/blob/master/README.md';
 export const installHref = 'https://github.com/edheltzel/Echo/blob/master/docs/install-human.md';
 
 /**
