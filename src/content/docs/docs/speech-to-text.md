@@ -2,7 +2,6 @@
 title: Voice ask (speech-to-text)
 description: An agent asks you one question out loud and gets your spoken answer back as text, transcribed on your Mac.
 ---
-<!-- OPEN CAPTAIN DECISION: README still calls first-class STT "roadmap #179" and an "opt-in extra". Keep the claims below to what ships today until Atlas relays the final framing. -->
 Echo can listen as well as speak. With voice ask, a coding agent speaks **one question**, records **one reply**, transcribes it **on your Mac**, and gets the transcript back. It is a single exchange. It is not a hands-free chat or a dictation mode.
 
 ## How it works
