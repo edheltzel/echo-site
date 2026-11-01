@@ -23,4 +23,8 @@ npm run build
 npm run contrast
 npm run flash
 npm run install-box
+npm run signal:unit
+npm run signal
 ```
+
+The hero signal uses the shared theme, pauses when hidden/offscreen, and honors live reduced-motion changes. Replay and Send a signal are local visual controls only. Use `?still=1` or `?t=4` for fixed visual review. Browser checks accept `CHROME_PATH`.

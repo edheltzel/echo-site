@@ -13,7 +13,9 @@
     "check": "astro check",
     "contrast": "node scripts/contrast.mjs",
     "flash": "node scripts/flash.mjs",
-    "install-box": "node scripts/install-box.mjs"
+    "install-box": "node scripts/install-box.mjs",
+    "signal": "node scripts/signal.mjs",
+    "signal:unit": "node scripts/signal-unit.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

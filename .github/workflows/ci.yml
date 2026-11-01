@@ -18,3 +18,5 @@ jobs:
       - run: node scripts/contrast.mjs
       - run: npm run flash
       - run: npm run install-box
+      - run: npm run signal:unit
+      - run: npm run signal
